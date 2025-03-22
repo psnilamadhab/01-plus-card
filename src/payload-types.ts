@@ -62,11 +62,11 @@ export type SupportedTimezones =
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
+    Users: UserAuthOperations;
   };
   blocks: {};
   collections: {
-    users: User;
+    Users: User;
     customers: Customer;
     dependants: Dependant;
     'payload-locked-documents': PayloadLockedDocument;
@@ -75,7 +75,7 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    Users: UsersSelect<false> | UsersSelect<true>;
     customers: CustomersSelect<false> | CustomersSelect<true>;
     dependants: DependantsSelect<false> | DependantsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -89,7 +89,7 @@ export interface Config {
   globalsSelect: {};
   locale: null;
   user: User & {
-    collection: 'users';
+    collection: 'Users';
   };
   jobs: {
     tasks: unknown;
@@ -116,11 +116,12 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "Users".
  */
 export interface User {
   id: string;
   name?: string | null;
+  role?: ('editor' | 'admin' | 'user')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -151,6 +152,7 @@ export interface Customer {
         value: string | Dependant;
       }[]
     | null;
+  createdBy: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -162,6 +164,7 @@ export interface Dependant {
   id: string;
   name: string;
   aadhar?: string | null;
+  createdBy: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -173,7 +176,7 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
-        relationTo: 'users';
+        relationTo: 'Users';
         value: string | User;
       } | null)
     | ({
@@ -186,7 +189,7 @@ export interface PayloadLockedDocument {
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: 'users';
+    relationTo: 'Users';
     value: string | User;
   };
   updatedAt: string;
@@ -199,7 +202,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: 'users';
+    relationTo: 'Users';
     value: string | User;
   };
   key?: string | null;
@@ -228,10 +231,11 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "Users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -255,6 +259,7 @@ export interface CustomersSelect<T extends boolean = true> {
   address?: T;
   'pin code'?: T;
   dependants?: T;
+  createdBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -265,6 +270,7 @@ export interface CustomersSelect<T extends boolean = true> {
 export interface DependantsSelect<T extends boolean = true> {
   name?: T;
   aadhar?: T;
+  createdBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }

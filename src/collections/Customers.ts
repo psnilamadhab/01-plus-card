@@ -1,7 +1,12 @@
+import { isSuperAdminAccess } from '@/access/isAdmin'
+import { createdBy } from '@/utils/createdBy'
 import type { CollectionConfig } from 'payload'
 
 export const Customers: CollectionConfig = {
   slug: 'customers',
+  access: {
+    delete: isSuperAdminAccess,
+  },
   admin: {
     useAsTitle: 'name',
     listSearchableFields: ['phone'],
@@ -45,6 +50,12 @@ export const Customers: CollectionConfig = {
       name: 'dependants',
       relationTo: ['dependants'],
       hasMany: true,
+    },
+    {
+      type: 'text',
+      name: 'createdBy',
+      required: true,
+      defaultValue: createdBy,
     },
   ],
 }
