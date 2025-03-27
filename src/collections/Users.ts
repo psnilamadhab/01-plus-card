@@ -2,16 +2,13 @@ import { isSuperAdmin, isSuperAdminAccess } from '@/access/isAdmin'
 import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
-  slug: 'Users',
+  slug: 'users',
   labels: {
     singular: 'User',
     plural: 'Users',
   },
   access: {
     read: isSuperAdminAccess,
-    create: isSuperAdminAccess,
-    delete: isSuperAdminAccess,
-    update: isSuperAdminAccess,
   },
   admin: {
     useAsTitle: 'name',
