@@ -6,6 +6,7 @@ export const Customers: CollectionConfig = {
   slug: 'customers',
   access: {
     delete: isSuperAdminAccess,
+    update: isSuperAdminAccess,
   },
   admin: {
     useAsTitle: 'name',

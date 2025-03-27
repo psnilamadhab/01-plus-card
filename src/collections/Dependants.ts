@@ -9,6 +9,7 @@ export const Dependants: CollectionConfig = {
   },
   access: {
     delete: isSuperAdminAccess,
+    update: isSuperAdminAccess,
   },
 
   fields: [
